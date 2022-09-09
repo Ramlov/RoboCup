@@ -7,7 +7,7 @@ from pybricks.robotics import DriveBase
 
 ev3 = EV3Brick()
 
-#Farvetest
+#Farvetest. SHeeeesh
 colorS = ColorSensor(Port.S3)
 
 amb = colorS.ambient()
