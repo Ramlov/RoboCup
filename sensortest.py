@@ -6,9 +6,9 @@ from pybricks.tools import wait, DataLog
 from pybricks.robotics import DriveBase
 
 ev3 = EV3Brick()
-
 #Farvetest
 #BJØRN WAS HERE
+
 colorS = ColorSensor(Port.S3)
 
 amb = colorS.ambient()
