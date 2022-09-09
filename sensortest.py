@@ -8,6 +8,7 @@ from pybricks.robotics import DriveBase
 ev3 = EV3Brick()
 #Farvetest
 #BJØRN WAS HERE
+#Bjørn was here 2
 
 colorS = ColorSensor(Port.S3)
 
