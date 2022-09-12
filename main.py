@@ -4,6 +4,7 @@ from pybricks.ev3devices import Motor, ColorSensor, TouchSensor, UltrasonicSenso
 from pybricks.parameters import Port, Direction, Button, Color
 from pybricks.tools import wait, DataLog
 from pybricks.robotics import DriveBase
+from pybricks.media.ev3dev import SoundFile
 import opgaver
 
 
