@@ -6,7 +6,7 @@ from pybricks.tools import wait, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile
 import opgaver
-
+import _thread
 
 #Definitionen af motor samt diverse sensor
 ev3 = EV3Brick()
@@ -15,11 +15,11 @@ ev3 = EV3Brick()
 lmotor = Motor(Port.C, Direction.COUNTERCLOCKWISE)
 rmotor = Motor(Port.B, Direction.COUNTERCLOCKWISE)
 klo = Motor(Port.A)
-
 robot = DriveBase(lmotor, rmotor, wheel_diameter=44.5, axle_track=160)
+ev3.speaker.set_volume(100)
 
 #Sensors
-Ultra = UltrasonicSensor(Port.S1)
+#Ultra = UltrasonicSensor(Port.S1)
 touch_sensor = TouchSensor(Port.S4)
 leftColor = ColorSensor(Port.S2)
 rightColor = ColorSensor(Port.S3)
@@ -87,7 +87,6 @@ class Maskine():
                 rightGuess = "Grey"
             elif rightReflection <= self.blackThreshold:
                 rightGuess = "Black"
-        
             right=rightGuess
             left=leftGuess
 
@@ -230,13 +229,20 @@ class Maskine():
 ##############################################
 
 
+ev3.speaker.set_volume(100)
 
+def musik_play():
+    ev3.speaker.play_file("music/Pornhub-intro.rsf")
 
+def th_func(delay, id):
+    while True:
+        musik_play()
+        wait(1000)
 
-
+for i in range(1):
+    _thread.start_new_thread(th_func, (i + 1, i))
 
 maskine = Maskine()
-
 #--------------START--------------
 maskine.sdv()
 #maskine.openklo()
@@ -244,4 +250,4 @@ maskine.sdv()
 
 #opgaver.opgave1(ev3, maskine, robot)
 
-maskine.saff()
+#maskine.saff()
