@@ -17,5 +17,5 @@ Den mest streamlinede og smukke kode du nogensinde har set i dit liv
 - Gribe flaske
 - Præcis linje 
 - Find flaske
-- Collio
+- Coollio
 
