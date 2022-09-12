@@ -8,7 +8,7 @@ Den mest streamlinede og smukke kode du nogensinde har set i dit liv
 
 ## Demo
 <p align="center">
-<img src="/images/preview.gif">
+<img src="/preview.gif">
 </p>
 
 
