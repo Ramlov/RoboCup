@@ -7,7 +7,9 @@ Den mest streamlinede og smukke kode du nogensinde har set i dit liv
 
 
 ## Demo
-https://im5.ezgif.com/tmp/ezgif-5-981f0ca324.gif
+<p align="center">
+<img src="/images/preview.gif">
+</p>
 
 
 ## Features
