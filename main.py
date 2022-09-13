@@ -58,7 +58,7 @@ class Maskine():
 
     def sdv(self):
         """ Set defualt Values for driving"""
-        self.fullDrive = 450
+        self.fullDrive = 350
         self.turnRate = 20
         self.fullTurnRate = 70
     
@@ -116,6 +116,37 @@ class Maskine():
                 robot.stop()
                 break
 
+    def straight_until_grey(self):
+        while True:
+            leftReflection = leftColor.reflection()
+            rightReflection = rightColor.reflection()
+
+            leftGuess = ""
+            rightGuess = ""
+
+            #CHECKING LEFT GUESS
+            if leftReflection >= self.threshold:
+                leftGuess = "White"
+            elif self.threshold > leftReflection > self.blackThreshold:
+                leftGuess = "Grey"
+            elif leftReflection <= self.blackThreshold:
+                leftGuess = "Black"
+
+            #CHECKING RIGHT GUESS
+            if rightReflection >= self.threshold:
+                rightGuess = "White"
+            elif self.threshold > rightReflection > self.blackThreshold:
+                rightGuess = "Grey"
+            elif rightReflection <= self.blackThreshold:
+                rightGuess = "Black"
+            right=rightGuess
+            left=leftGuess
+
+            if right == "White" and left == "White":
+                robot.drive(self.fullDrive)
+            elif left == "Grey" or right == "Grey":
+                robot.stop()
+                break
 
     def Kalibrering(self):
 
@@ -245,7 +276,8 @@ maskine = Maskine()
 maskine.sdv()
 Music.musik_intro()
 #maskine.openklo()
-#maskine.Kalibrering()
+maskine.Kalibrering()
+#maskine.autodrive()
 
 #Music.musik_opgave1("music/Tank.rsf")
 
@@ -262,4 +294,4 @@ for i in range(1):
     _thread.start_new_thread(th_func, (i + 1, i))
 
 """
-#opgaver.opgave1(ev3, maskine, robot)
+opgaver.opgave1(ev3, maskine, robot)
