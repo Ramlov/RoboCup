@@ -2,14 +2,14 @@
 
 def opgave1(ev3, maskine, robot):
     ev3.speaker.beep()
-    maskine.fullDrive = 100
-    maskine.fullTurnRate = 60
-    maskine.turnRate = 30
     maskine.autodrive()
-    robot.straight(-400)
-    maskine.fullDrive = 30
-    maskine.fullTurnRate = 60
-    maskine.turnRate = 40
+    maskine.turn(45)
+    robot.straight(100)
+    maskine.straight_until_grey()
+    maskine.turn(-45)
     maskine.autodrive()
-
-
+    maskine.turn(-45)
+    robot.straight(100)
+    maskine.straight_until_grey()
+    maskine.turn(45)
+    maskine.autodrive()
