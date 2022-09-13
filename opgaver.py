@@ -5,11 +5,17 @@ def opgave1(ev3, maskine, robot):
     maskine.autodrive()
     maskine.turn(45)
     robot.straight(100)
-    maskine.straight_until_grey()
+    maskine.straight_until_color("Grey")
     maskine.turn(-45)
     maskine.autodrive()
     maskine.turn(-45)
     robot.straight(100)
-    maskine.straight_until_grey()
+    maskine.straight_until_color("Grey")
     maskine.turn(45)
     maskine.autodrive()
+
+def opgave2(ev3, maskine, robot):
+    robot.straight(100)
+    maskine.turn(90)
+    
+    

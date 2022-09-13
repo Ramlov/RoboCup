@@ -5,7 +5,7 @@ from pybricks.parameters import Port, Direction, Button, Color
 from pybricks.tools import wait, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile
-import  opgaver
+import opgaver
 import _thread
 
 #Definitionen af motor samt diverse sensor
@@ -19,13 +19,10 @@ robot = DriveBase(lmotor, rmotor, wheel_diameter=44.5, axle_track=160)
 ev3.speaker.set_volume(100)
 
 #Sensors
-#Ultra = UltrasonicSensor(Port.S1)
+Ultra = UltrasonicSensor(Port.S1)
 touch_sensor = TouchSensor(Port.S4)
 leftColor = ColorSensor(Port.S2)
 rightColor = ColorSensor(Port.S3)
-
-
-
 
 class Maskine():
     #Colorsensor værdier
@@ -58,7 +55,7 @@ class Maskine():
 
     def sdv(self):
         """ Set defualt Values for driving"""
-        self.fullDrive = 350
+        self.fullDrive = 150
         self.turnRate = 20
         self.fullTurnRate = 70
     
@@ -116,7 +113,9 @@ class Maskine():
                 robot.stop()
                 break
 
-    def straight_until_grey(self):
+
+    def straight_until_color(self, color):
+        print("Kører straigh_until_grey")
         while True:
             leftReflection = leftColor.reflection()
             rightReflection = rightColor.reflection()
@@ -142,11 +141,12 @@ class Maskine():
             right=rightGuess
             left=leftGuess
 
-            if right == "White" and left == "White":
-                robot.drive(self.fullDrive)
-            elif left == "Grey" or right == "Grey":
+            if right == "White" or left == "White":
+                robot.drive(self.fullDrive, 0)
+            elif left == color or right == color:
                 robot.stop()
                 break
+
 
     def Kalibrering(self):
 
@@ -237,11 +237,11 @@ class Maskine():
         #
         #   Flasken er fundet, vi finder nu dens midten
         #
-
-        robot.reset()
-        robot.drive(0, 30)
-        while Ultra.distance() > self.flaskeAfstand:
-            pass
+            self.flaske()
+        #robot.reset()
+        #robot.drive(0, 30)
+        #while Ultra.distance() > self.flaskeAfstand:
+         #   Flaske()
 
         
         # while True:
@@ -274,13 +274,9 @@ class Music():
 maskine = Maskine()
 #--------------START--------------
 maskine.sdv()
-Music.musik_intro()
+#Music.musik_intro()
 #maskine.openklo()
-maskine.Kalibrering()
-#maskine.autodrive()
-
-#Music.musik_opgave1("music/Tank.rsf")
-
+#maskine.Kalibrering()
 
 #maskine.saff()
 
@@ -294,4 +290,8 @@ for i in range(1):
     _thread.start_new_thread(th_func, (i + 1, i))
 
 """
-opgaver.opgave1(ev3, maskine, robot)
+
+
+#opgaver.opgave1(ev3, maskine, robot)
+
+maskine.saff()
