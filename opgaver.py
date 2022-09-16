@@ -19,12 +19,38 @@ def opgave1(ev3, maskine, robot):
 def opgave2(ev3, maskine, robot):
     """Flaske"""
     maskine.sdv()
+
     robot.straight(200)
-    maskine.turn(90)
-    robot.straight(-200)
+    maskine.turn(-90)
+    
+    maskine.saff()
+
+    robot.straight(-300)
+    maskine.saff()
+
     maskine.flaske()
+    #while True:
+        #     robot.drive(-80, 0)
+        #     dist = Ultra.distance()
+        #     if dist < 40:
+        #         robot.stop()
+        #         robot.straight(-40)
+        #         maskine.closeklo()
+
+        #         break
+        # robot.straight(-80)
+        # maskine.openklo()
+        # robot.straight(200)
+     
+
     maskine.straight_until_color("Black", -1)
+
+    maskine.openklo()
+
+    maskine.turn(30)
     maskine.straight_until_color("Grey")
+    robot.straight(30)
+    maskine.turn(60)
     maskine.autodrive()
 
 def opgave3(ev3, maskine, robot):
