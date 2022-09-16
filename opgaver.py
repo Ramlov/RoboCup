@@ -33,16 +33,17 @@ def opgave2(ev3, maskine, robot):
 
 def opgave3(ev3, maskine, robot):
     """Vippen"""
+    watch = StopWatch()
+
     maskine.autodrive()
     robot.straight(150)
     maskine.turn(-90)
     maskine.autodrive()
     maskine.fullDrive= 100
-    StopWatch.reset(0 )
-    StopWatch.resume()
-    while StopWatch.time() < 12000:
+    while watch.time() < 10000:
         maskine.autodrive()
     maskine.autodrive(True, "White")
+    print("har set hvid")
     maskine.turn(-90)
     maskine.autodrive()
 
