@@ -304,5 +304,5 @@ for i in range(1):
 
 """
 
-
+#maskine.turn(-90)
 opgaver.opgave3(ev3, maskine, robot)
