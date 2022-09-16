@@ -114,8 +114,7 @@ class Maskine():
                 break
 
 
-    def straight_until_color(self, color):
-        print("Kører straigh_until_grey")
+    def straight_until_color(self, color, dir=1):
         while True:
             leftReflection = leftColor.reflection()
             rightReflection = rightColor.reflection()
@@ -142,7 +141,7 @@ class Maskine():
             left=leftGuess
 
             if right == "White" or left == "White":
-                robot.drive(self.fullDrive, 0)
+                    robot.drive((dir * self.fullDrive), 0)
             elif left == color or right == color:
                 robot.stop()
                 break
@@ -236,8 +235,8 @@ class Maskine():
 
         #
         #   Flasken er fundet, vi finder nu dens midten
-        #
             self.flaske()
+            
         #robot.reset()
         #robot.drive(0, 30)
         #while Ultra.distance() > self.flaskeAfstand:
@@ -275,8 +274,9 @@ maskine = Maskine()
 #--------------START--------------
 maskine.sdv()
 #Music.musik_intro()
-#maskine.openklo()
-#maskine.Kalibrering()
+maskine.openklo()
+maskine.Kalibrering()
+wait(400)
 
 #maskine.saff()
 
@@ -292,6 +292,5 @@ for i in range(1):
 """
 
 
-#opgaver.opgave1(ev3, maskine, robot)
-
-maskine.saff()
+opgaver.opgave1(ev3, maskine, robot)
+opgaver.opgave4(ev3, maskine, robot, rightColor)
