@@ -1,5 +1,7 @@
 #!/usr/bin/env pybricks-micropython
 
+from pybricks.tools import StopWatch
+
 def opgave1(ev3, maskine, robot):
     """Brudt linje"""
     ev3.speaker.beep()
@@ -7,11 +9,13 @@ def opgave1(ev3, maskine, robot):
     maskine.turn(45)
     robot.straight(100)
     maskine.straight_until_color("Grey")
+    robot.straight(50)
     maskine.turn(-45)
     maskine.autodrive()
-    maskine.turn(-45)
+    maskine.turn(-35)
     robot.straight(100)
     maskine.straight_until_color("Grey")
+    robot.straight(40)
     maskine.turn(45)
     maskine.autodrive()
 
@@ -20,7 +24,7 @@ def opgave2(ev3, maskine, robot):
     """Flaske"""
     maskine.sdv()
     robot.straight(200)
-    maskine.turn(90)
+    maskine.turn(-90)
     robot.straight(-200)
     maskine.flaske()
     maskine.straight_until_color("Black", -1)
@@ -29,11 +33,18 @@ def opgave2(ev3, maskine, robot):
 
 def opgave3(ev3, maskine, robot):
     """Vippen"""
-    robot.straight(200)
-    maskine.turn(90)
-    maskine.autodrive
-    maskine.fullDrive(100)
-    maskine.autodrive
+    maskine.autodrive()
+    robot.straight(150)
+    maskine.turn(-90)
+    maskine.autodrive()
+    maskine.fullDrive= 100
+    StopWatch.reset(0 )
+    StopWatch.resume()
+    while StopWatch.time() < 12000:
+        maskine.autodrive()
+    maskine.autodrive(True, "White")
+    maskine.turn(-90)
+    maskine.autodrive()
 
 def opgave4(ev3, maskine, robot, rightColor):
     """De 4 brudte steger"""
