@@ -56,11 +56,16 @@ class Maskine():
     def sdv(self):
         """ Set defualt Values for driving"""
         self.fullDrive = 150
-        self.turnRate = 20
+        self.turnRate = 35
         self.fullTurnRate = 70
     
 
-    def autodrive(self):
+    def autodrive(self, stopForFarve=None, stopFarve=None):
+        """
+        AutoDrive-funktion
+        Hvis robotten skal stoppe for en farve på begge sensorer skal stopForFarve = True og
+        farven sættes med fx stopFarve = hvid
+        """
         while True:
             #REFLECTION
             leftReflection = leftColor.reflection()
@@ -112,6 +117,9 @@ class Maskine():
             elif left == "Black" or right == "Black":
                 robot.stop()
                 break
+            elif stopForFarve == True and left == stopFarve and right == stopFarve:
+                robot.stop()
+                break
 
 
     def straight_until_color(self, color, dir=1):
@@ -160,6 +168,12 @@ class Maskine():
         self.threshold = (greyLine + whiteLine) / 2      # Gennemsnittet mellem grå og hvid
         self.blackThreshold = greyLine / 3
     
+
+    def retop(self):
+        robot.straight(-200)
+        maskine.fullDrive = 50
+        maskine.turnRate = 40
+        maskine.autodrive()
 
     def openklo(self):
         klo.run_time(700, 1100)
@@ -261,18 +275,6 @@ class Music():
 maskine = Maskine()
 #--------------START--------------
 maskine.sdv()
-maskine.openklo()
-
-maskine.flaske()
-
-exit()
-
-maskine.openklo()
-maskine.Kalibrering()
-wait(400)
-ev3.speaker.beep()
-
-opgaver.opgave2(ev3, maskine, robot)
 
 
 #maskine.saff()
@@ -286,4 +288,3 @@ def th_func(delay, id):
 for i in range(1):
     _thread.start_new_thread(th_func, (i + 1, i))
 
-"""
