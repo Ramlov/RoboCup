@@ -176,10 +176,18 @@ class Maskine():
 
 
     def flaske(self):
-        while not touch_sensor.pressed():
+        while Ultra.distance() > 80:
             robot.drive(-100, 0)
-        robot.drive(0, 0)
-        self.closeklo()
+            print(Ultra.distance())
+        robot.stop()
+        wait(3000)
+        robot.straight(-70)
+        maskine.closeklo()
+
+
+        while True:
+            print(Ultra.distance())
+            wait(100)
 
 
     def saff(self):
@@ -233,28 +241,8 @@ class Maskine():
                 ev3.light.on(Color.RED)
                 wait(250)
 
-        #
-        #   Flasken er fundet, vi finder nu dens midten
-            self.flaske()
-            
-        #robot.reset()
-        #robot.drive(0, 30)
-        #while Ultra.distance() > self.flaskeAfstand:
-         #   Flaske()
-
         
-        # while True:
-        #     robot.drive(-80, 0)
-        #     dist = Ultra.distance()
-        #     if dist < 40:
-        #         robot.stop()
-        #         robot.straight(-40)
-        #         maskine.closeklo()
-
-        #         break
-        # robot.straight(-80)
-        # maskine.openklo()
-        # robot.straight(200)
+        #
 
 ##############################################
 class Music():
@@ -273,10 +261,19 @@ class Music():
 maskine = Maskine()
 #--------------START--------------
 maskine.sdv()
-#Music.musik_intro()
+maskine.openklo()
+
+maskine.flaske()
+
+exit()
+
 maskine.openklo()
 maskine.Kalibrering()
 wait(400)
+ev3.speaker.beep()
+
+opgaver.opgave2(ev3, maskine, robot)
+
 
 #maskine.saff()
 
@@ -290,7 +287,3 @@ for i in range(1):
     _thread.start_new_thread(th_func, (i + 1, i))
 
 """
-
-
-opgaver.opgave1(ev3, maskine, robot)
-opgaver.opgave4(ev3, maskine, robot, rightColor)
