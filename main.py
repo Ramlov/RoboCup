@@ -210,60 +210,53 @@ class Maskine():
         """Search and Find Flaske"""
         maxAngle = 50                   #SKAL ÆNDRES ved testning
         angleFromEdgeToCenter = 10
-
         flaskeFundet = False
         
         if Ultra.distance() < self.flaskeAfstand:       #Hvis den allerede kan se flasken, så hurtig ret ind
-            while Ultra.distance() > self.flaskeAfstand:
-                robot.drive(0, -50)
-            
+            while Ultra.distance() < self.flaskeAfstand:
+                robot.drive(0, -20)
             maskine.turn(angleFromEdgeToCenter)
             flaskeFundet = True
 
-        if flaskeFundet == False:
-            #Scan til højre
+        if flaskeFundet == False:           #Scan til højre
             robot.reset()                   #Resetter vinklen til angle()
             robot.drive(0, 50)              #Ligesom self.turn(10) men asynkront og konstant
             while self.angle() < maxAngle:
-                dist = Ultra.distance()
-
                 ev3.screen.clear()
                 ev3.screen.draw_text(0, 20, self.angle())
 
-                if dist < self.flaskeAfstand:
+                if Ultra.distance() < self.flaskeAfstand:
                     flaskeFundet = True
                     self.turn(angleFromEdgeToCenter)
+                    robot.stop()
                     break
-            
-            robot.stop()
 
         
         if flaskeFundet == False:           #Søg til venstre hvis ikke fundet til højre
             self.turn(-self.angle())        #TIlbage til midterpunktet
-            wait(1000)
+            wait(500)
             robot.reset()
             robot.drive(0, -50)
 
             while self.angle() > -maxAngle:
-                dist = Ultra.distance()
-
                 ev3.screen.clear()
                 ev3.screen.draw_text(0, 20, self.angle())
     
-                if dist < self.flaskeAfstand:
+                if Ultra.distance() < self.flaskeAfstand:
                     flaskeFundet = True
                     self.turn(-angleFromEdgeToCenter)
+                    robot.stop()
                     break
-            
-            robot.stop()
         
+
         ev3.light.on(Color.RED)
-        wait(250)
         ev3.speaker.beep()
+        wait(1000)
         ev3.light.on(Color.GREEN)
 
-        
-        #
+
+
+
 
 ##############################################
 class Music():
@@ -277,7 +270,10 @@ class Music():
     
     def musik_opgave2():
         ev3.speaker.play_file("Tank.rsf")
-    
+
+
+
+
 
 maskine = Maskine()
 #--------------START--------------
