@@ -1,6 +1,7 @@
 #!/usr/bin/env pybricks-micropython
 
-from pybricks.tools import StopWatch
+from pybricks.tools import StopWatch    #Alternativ https://docs.micropython.org/en/latest/library/time.html
+
 
 def opgave1(ev3, maskine, robot):
     """Brudt linje"""
@@ -29,27 +30,16 @@ def opgave2(ev3, maskine, robot):
     
     maskine.saff()
 
-    robot.straight(-300)
+    robot.straight(-250)
+
     maskine.saff()
-
-    robot.straight(-200)
     maskine.flaske()
-    #while True:
-        #     robot.drive(-80, 0)
-        #     dist = Ultra.distance()
-        #     if dist < 40:
-        #         robot.stop()
-        #         robot.straight(-40)
-        #         maskine.closeklo()
-
-        #         break
-        # robot.straight(-80)
-        # maskine.openklo()
-        # robot.straight(200)
-     
 
     maskine.straight_until_color("Black", -1)
 
+    #Stopper ved blå, skal laves færdig!?
+    #Kræver at saff() bliver opdateret
+    return
     maskine.openklo()
 
     maskine.turn(30)
@@ -57,6 +47,8 @@ def opgave2(ev3, maskine, robot):
     robot.straight(30)
     maskine.turn(60)
     maskine.autodrive()
+
+
 
 def opgave3(ev3, maskine, robot):
     """Vippen"""
@@ -74,7 +66,7 @@ def opgave3(ev3, maskine, robot):
     maskine.turn(-90)
     maskine.autodrive()
 
-def opgave4(ev3, maskine, robot, rightColor):
+def opgave4(ev3, maskine, robot, rightColor):   #Må gerne opdateres så wait() ikke skal bruges! plsss
     """De 4 brudte steger"""
     glCount = 0
     maskine.turn(45)
@@ -86,8 +78,10 @@ def opgave4(ev3, maskine, robot, rightColor):
     
 
 
-def opgave5(ev3, maskine, robot):
+def opgave5(ev3, maskine, robot):   #Brug saff()
     """Flaske i målskiven"""
 
-def opgave6(ev3, maskine, robot):
+def opgave6(ev3, maskine, robot):   #Brug saff() til at sætte indgangsvinkel bedre
     """Uden om flaske"""
+
+

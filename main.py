@@ -5,8 +5,9 @@ from pybricks.parameters import Port, Direction, Button, Color
 from pybricks.tools import wait, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile
-import opgaver
-import _thread
+import opgaver      #Opgaver.py
+import _thread      #Til musicplayer og muligvis kloen?
+
 
 #Definitionen af motor samt diverse sensor
 ev3 = EV3Brick()
@@ -24,15 +25,21 @@ touch_sensor = TouchSensor(Port.S4)
 leftColor = ColorSensor(Port.S2)
 rightColor = ColorSensor(Port.S3)
 
+
+
+
+
 class Maskine():
     #Colorsensor værdier
     threshold = 0
     blackThreshold = 0
 
-    #Drive værdier
+    #Drive værdier ( bliver sat af maskine.sdv(), ikke rør! )
     fullDrive = 0
     turnRate = 0
     fullTurnRate = 0
+
+    #Autodrive, hvilken retning er robotten igang med at dreje
     turnDirection = "none"
 
     #Følgende værdier fra Mortens vinkeldokument / eksperiment
@@ -40,25 +47,23 @@ class Maskine():
     rotationFactor = 1.53           #robot.turn(180 * rotationFactor)
 
     #Længden vi forventer flasken at være væk
-    flaskeAfstand = 500
+    flaskeAfstand = 500     #Skal ændres!? Kig på banen
 
 
     def turn(self, angle):
         """A corrected robot.turn() function."""
         robot.turn(angle * self.rotationFactor)
 
-
     def angle(self):
         """A corrected robot.angle() function."""
         return robot.angle() / self.rotationFactor
-
 
     def sdv(self):
         """ Set defualt Values for driving"""
         self.fullDrive = 150
         self.turnRate = 35
         self.fullTurnRate = 70
-    
+
 
     def autodrive(self, stopForFarve=None, stopFarve=None):
         """
@@ -89,6 +94,7 @@ class Maskine():
                 rightGuess = "Grey"
             elif rightReflection <= self.blackThreshold:
                 rightGuess = "Black"
+            
             right=rightGuess
             left=leftGuess
 
@@ -148,7 +154,7 @@ class Maskine():
             right=rightGuess
             left=leftGuess
 
-            if right == "White" or left == "White":
+            if right == "White" or left == "White":     #Skal muligvis ændres at at sige (if right != color)
                     robot.drive((dir * self.fullDrive), 0)
             elif left == color or right == color:
                 robot.stop()
@@ -169,11 +175,12 @@ class Maskine():
         self.blackThreshold = greyLine / 3
     
 
-    def retop(self):
+    def retOp(self):        #Måske ændres?
         robot.straight(-200)
         maskine.fullDrive = 50
         maskine.turnRate = 40
         maskine.autodrive()
+
 
     def openklo(self):
         klo.run_time(700, 1100)
@@ -199,18 +206,18 @@ class Maskine():
         maskine.closeklo()
 
 
-        while True:
-            print(Ultra.distance())
-            wait(100)
-
-
     def saff(self):
-        """Search and Find Flaske: Find flaske og grib den"""
-        maxAngle = 70                   #SKAL ÆNDRES
+        """Search and Find Flaske"""
+        maxAngle = 50                   #SKAL ÆNDRES ved testning
+        angleFromEdgeToCenter = 10
 
         flaskeFundet = False
-        dist = Ultra.distance()
-        if dist < self.flaskeAfstand:       #Hvis den allerede kan se flasken, så skip scanningen
+        
+        if Ultra.distance() < self.flaskeAfstand:       #Hvis den allerede kan se flasken, så hurtig ret ind
+            while Ultra.distance() > self.flaskeAfstand:
+                robot.drive(0, -50)
+            
+            maskine.turn(angleFromEdgeToCenter)
             flaskeFundet = True
 
         if flaskeFundet == False:
@@ -225,14 +232,14 @@ class Maskine():
 
                 if dist < self.flaskeAfstand:
                     flaskeFundet = True
-                    self.turn(10)
+                    self.turn(angleFromEdgeToCenter)
                     break
             
             robot.stop()
 
         
-        if flaskeFundet == False:            #Også søg til venstre nu
-            self.turn(-self.angle())    #TIlbage til midterpunktet
+        if flaskeFundet == False:           #Søg til venstre hvis ikke fundet til højre
+            self.turn(-self.angle())        #TIlbage til midterpunktet
             wait(1000)
             robot.reset()
             robot.drive(0, -50)
@@ -245,15 +252,15 @@ class Maskine():
     
                 if dist < self.flaskeAfstand:
                     flaskeFundet = True
-                    self.turn(-10)
+                    self.turn(-angleFromEdgeToCenter)
                     break
             
             robot.stop()
         
-        if flaskeFundet:
-            for i in range(3):
-                ev3.light.on(Color.RED)
-                wait(250)
+        ev3.light.on(Color.RED)
+        wait(250)
+        ev3.speaker.beep()
+        ev3.light.on(Color.GREEN)
 
         
         #
@@ -278,13 +285,4 @@ maskine.sdv()
 
 
 #maskine.saff()
-
-"""
-def th_func(delay, id):
-    while True:
-        Music.musik_opgave1("music/Tank.rsf")
-        wait(10)
-
-for i in range(1):
-    _thread.start_new_thread(th_func, (i + 1, i))
 
