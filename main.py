@@ -258,7 +258,7 @@ class Maskine():
 
 
 
-##############################################
+################## MUSIK ####################
 class Music():
     def musik_intro():
         ev3.speaker.set_volume(100)
@@ -272,13 +272,24 @@ class Music():
         ev3.speaker.play_file("Tank.rsf")
 
 
+#Thread musik. Måske kunne openklo() også være en thread
+def threadMusic(delay, id, fileName):
+    ev3.speaker.set_volume(100)
+    ev3.speaker.play_file(f"music/{fileName}.rsf")
+
+_thread.start_new_thread(threadMusic, 1, 1, "Pornhub-intro")
+
+##############################################
 
 
 
+#----------------------------START----------------------------
 maskine = Maskine()
-#--------------START--------------
+
 maskine.sdv()
+maskine.Kalibrering()
+maskine.openklo()
 
 
-#maskine.saff()
+#opgaver.opgave1(ev3, robot)
 
