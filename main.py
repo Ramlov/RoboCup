@@ -317,8 +317,10 @@ def threadMusic(delay, id, fileName):
     ev3.speaker.set_volume(100)
     ev3.speaker.play_file(f"music/{fileName}.rsf")
 
+def PlayAsyncMusic(musicTitle):
+    _thread.start_new_thread(threadMusic, 1, 1, musicTitle)
 
-_thread.start_new_thread(threadMusic, 1, 1, "Pornhub-intro")
+PlayAsyncMusic("Pornhub-intro")
 
 ##############################################
 
