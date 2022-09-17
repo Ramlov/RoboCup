@@ -5,6 +5,7 @@ from pybricks.parameters import Port, Direction, Button, Color
 from pybricks.tools import wait, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile
+from pybricks.tools import StopWatch
 import opgaver      #Opgaver.py
 import _thread      #Til musicplayer og muligvis kloen?
 
@@ -25,7 +26,8 @@ touch_sensor = TouchSensor(Port.S4)
 leftColor = ColorSensor(Port.S2)
 rightColor = ColorSensor(Port.S3)
 
-
+#StopWatch
+stopwatch = StopWatch()
 
 
 
@@ -38,6 +40,9 @@ class Maskine():
     fullDrive = 0
     turnRate = 0
     fullTurnRate = 0
+
+    #retop konstanten
+    retOpKonstant = 0.1
 
     #Autodrive, hvilken retning er robotten igang med at dreje
     turnDirection = "none"
@@ -180,6 +185,41 @@ class Maskine():
         maskine.fullDrive = 50
         maskine.turnRate = 40
         maskine.autodrive()
+    
+
+    def retOooop(self):             #i dont know anymore. DET HER SKAL TESTES HVIS VI OVERHOVEDET SKAL BRUGE DET
+        robot.straight(-10)     #Bak tilbage ind i det sorte igen
+
+        #Bak indtil den ikke ser sort længere
+        while leftColor.reflection < self.blackThreshold or rightColor.reflection() < self.blackThreshold:
+            robot.drive(-50, 0)
+        ev3.speaker.beep()
+        robot.stop()
+        wait(500)
+
+        hasLeftHit, hasRightHit = False
+        leftTime, rightTime = 0
+
+        #Kør frem indtil en af sensorerne ser sort
+        while hasLeftHit == False or hasRightHit == False:
+            robot.drive(20, 0)
+            if leftColor.reflection() < self.blackThreshold and hasLeftHit == False:
+                hasLeftHit = True
+                leftTime = stopwatch.time()
+                break
+            if rightColor.reflection() < self.blackThreshold and hasLeftHit == False:
+                hasRightHit = True
+                rightTime = stopwatch.time()
+                break
+        
+        timeDifference = leftTime - rightTime
+        print("The time difference is", abs(timeDifference))
+        maskine.turn(timeDifference * self.retOpKonstant)       #Laver f.eks. 100 milisekunder om til 10 grader
+        ev3.light.on(Color.RED)
+        ev3.speaker.beep()
+        wait(500)
+
+
 
 
     def openklo(self):
@@ -276,6 +316,7 @@ class Music():
 def threadMusic(delay, id, fileName):
     ev3.speaker.set_volume(100)
     ev3.speaker.play_file(f"music/{fileName}.rsf")
+
 
 _thread.start_new_thread(threadMusic, 1, 1, "Pornhub-intro")
 

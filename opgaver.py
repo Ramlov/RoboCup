@@ -1,6 +1,6 @@
 #!/usr/bin/env pybricks-micropython
 
-from pybricks.tools import StopWatch    #Alternativ https://docs.micropython.org/en/latest/library/time.html
+from pybricks.tools import StopWatch
 
 
 def opgave1(ev3, maskine, robot):
