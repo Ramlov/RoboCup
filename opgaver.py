@@ -2,6 +2,7 @@
 
 from pybricks.tools import StopWatch
 
+
 def opgave1(ev3, maskine, robot):
     """Brudt linje"""
     ev3.speaker.beep()
@@ -23,13 +24,31 @@ def opgave1(ev3, maskine, robot):
 def opgave2(ev3, maskine, robot):
     """Flaske"""
     maskine.sdv()
+
     robot.straight(200)
     maskine.turn(-90)
-    robot.straight(-200)
+    
+    maskine.saff()
+
+    robot.straight(-250)
+
+    maskine.saff()
     maskine.flaske()
+
     maskine.straight_until_color("Black", -1)
+
+    #Stopper ved blå, skal laves færdig!?
+    #Kræver at saff() bliver opdateret
+    return
+    maskine.openklo()
+
+    maskine.turn(30)
     maskine.straight_until_color("Grey")
+    robot.straight(30)
+    maskine.turn(60)
     maskine.autodrive()
+
+
 
 def opgave3(ev3, maskine, robot):
     """Vippen"""
@@ -47,7 +66,7 @@ def opgave3(ev3, maskine, robot):
     maskine.turn(-90)
     maskine.autodrive()
 
-def opgave4(ev3, maskine, robot, rightColor):
+def opgave4(ev3, maskine, robot, rightColor):   #Må gerne opdateres så wait() ikke skal bruges! plsss
     """De 4 brudte steger"""
     glCount = 0
     maskine.turn(45)
@@ -59,8 +78,10 @@ def opgave4(ev3, maskine, robot, rightColor):
     
 
 
-def opgave5(ev3, maskine, robot):
+def opgave5(ev3, maskine, robot):   #Brug saff()
     """Flaske i målskiven"""
 
-def opgave6(ev3, maskine, robot):
+def opgave6(ev3, maskine, robot):   #Brug saff() til at sætte indgangsvinkel bedre
     """Uden om flaske"""
+
+
