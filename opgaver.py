@@ -3,9 +3,6 @@
 from pybricks.tools import StopWatch
 
 
-def idk(music):
-    music.PlayAsyncMusic("Pornhub-intro")
-
 def opgave1(ev3, maskine, robot, music):
     """Brudt linje"""
     ev3.speaker.beep()
@@ -31,17 +28,17 @@ def opgave2(ev3, maskine, robot, music):
     robot.straight(200)
     maskine.turn(-90)
     
-    maskine.saff()
+    maskine.BottleFinder()
 
     robot.straight(-250)
 
-    maskine.saff()
+    maskine.BottleFinder()
     maskine.flaske()
 
     maskine.straight_until_color("Black", -1)
 
     #Stopper ved blå, skal laves færdig!?
-    #Kræver at saff() bliver opdateret
+    #Kræver at BottleFinder() bliver opdateret
     return
     maskine.openklo()
 
@@ -69,6 +66,7 @@ def opgave3(ev3, maskine, robot, music):
     maskine.turn(-90)
     maskine.autodrive()
 
+
 def opgave4(ev3, maskine, robot, music, rightColor):   #Må gerne opdateres så wait() ikke skal bruges! plsss
     """De 4 brudte steger"""
     glCount = 0
@@ -78,15 +76,14 @@ def opgave4(ev3, maskine, robot, music, rightColor):   #Må gerne opdateres så 
         if rightColor() > maskine.threshold:
             wait(200)
             glcount += 1
-    
 
 
-def opgave5(ev3, maskine, robot, music):   #Brug saff()
+def opgave5(ev3, maskine, robot, music):   #Brug BottleFinder()
     """Flaske i målskiven"""
     
 
 
-def opgave6(ev3, maskine, robot, music):   #Brug saff() til at sætte indgangsvinkel bedre
+def opgave6(ev3, maskine, robot, music):   #Brug BottleFinder() til at sætte indgangsvinkel bedre
     """Uden om flaske"""
     ev3.speaker.beep()
 
