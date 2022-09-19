@@ -186,7 +186,7 @@ class Maskine():
         maskine.turnRate = 40
         maskine.autodrive()
     
-
+    
     def retOooop(self):             #i dont know anymore. DET HER SKAL TESTES HVIS VI OVERHOVEDET SKAL BRUGE DET
         robot.straight(-10)     #Bak tilbage ind i det sorte igen
 
@@ -246,7 +246,7 @@ class Maskine():
         maskine.closeklo()
 
 
-    def saff(self):
+    def BottleFinder(self):
         """Search and Find Flaske"""
         maxAngle = 50                   #SKAL ÆNDRES ved testning
         angleFromEdgeToCenter = 10
