@@ -3,7 +3,10 @@
 from pybricks.tools import StopWatch
 
 
-def opgave1(ev3, maskine, robot):
+def idk(music):
+    music.PlayAsyncMusic("Pornhub-intro")
+
+def opgave1(ev3, maskine, robot, music):
     """Brudt linje"""
     ev3.speaker.beep()
     maskine.autodrive()
@@ -21,7 +24,7 @@ def opgave1(ev3, maskine, robot):
     maskine.autodrive()
 
 
-def opgave2(ev3, maskine, robot):
+def opgave2(ev3, maskine, robot, music):
     """Flaske"""
     maskine.sdv()
 
@@ -50,7 +53,7 @@ def opgave2(ev3, maskine, robot):
 
 
 
-def opgave3(ev3, maskine, robot):
+def opgave3(ev3, maskine, robot, music):
     """Vippen"""
     watch = StopWatch()
 
@@ -66,7 +69,7 @@ def opgave3(ev3, maskine, robot):
     maskine.turn(-90)
     maskine.autodrive()
 
-def opgave4(ev3, maskine, robot, rightColor):   #Må gerne opdateres så wait() ikke skal bruges! plsss
+def opgave4(ev3, maskine, robot, music, rightColor):   #Må gerne opdateres så wait() ikke skal bruges! plsss
     """De 4 brudte steger"""
     glCount = 0
     maskine.turn(45)
@@ -78,10 +81,13 @@ def opgave4(ev3, maskine, robot, rightColor):   #Må gerne opdateres så wait() 
     
 
 
-def opgave5(ev3, maskine, robot):   #Brug saff()
+def opgave5(ev3, maskine, robot, music):   #Brug saff()
     """Flaske i målskiven"""
+    
 
-def opgave6(ev3, maskine, robot):   #Brug saff() til at sætte indgangsvinkel bedre
+
+def opgave6(ev3, maskine, robot, music):   #Brug saff() til at sætte indgangsvinkel bedre
     """Uden om flaske"""
+    ev3.speaker.beep()
 
 

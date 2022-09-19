@@ -7,7 +7,7 @@ from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile
 from pybricks.tools import StopWatch
 import opgaver      #Opgaver.py
-import _thread      #Til musicplayer og muligvis kloen?
+from threading import Thread        #Erstatter _thread. Til musicplayeren
 
 
 #Definitionen af motor samt diverse sensor
@@ -300,27 +300,14 @@ class Maskine():
 
 ################## MUSIK ####################
 class Music():
-    def musik_intro():
+    def threadMusic(self, fileName):
         ev3.speaker.set_volume(100)
-        ev3.speaker.play_file("music/Pornhub-intro.rsf")
-
-    def musik_opgave1(song):
-        ev3.speaker.set_volume(100)
-        ev3.speaker.play_file("music/Tokyo_Drift1.rsf")
+        ev3.speaker.play_file("music/" + fileName + ".rsf")
     
-    def musik_opgave2():
-        ev3.speaker.play_file("Tank.rsf")
-
-
-#Thread musik. Måske kunne openklo() også være en thread
-def threadMusic(delay, id, fileName):
-    ev3.speaker.set_volume(100)
-    ev3.speaker.play_file(f"music/{fileName}.rsf")
-
-def PlayAsyncMusic(musicTitle):
-    _thread.start_new_thread(threadMusic, 1, 1, musicTitle)
-
-PlayAsyncMusic("Pornhub-intro")
+    def PlayAsyncMusic(self, musicTitle):
+        t = Thread(target=self.threadMusic, args=(musicTitle,))
+        t.start()
+        wait(1)             #Wait, else the motors speeds up
 
 ##############################################
 
@@ -328,11 +315,20 @@ PlayAsyncMusic("Pornhub-intro")
 
 #----------------------------START----------------------------
 maskine = Maskine()
+music = Music()
+
+
 
 maskine.sdv()
 maskine.Kalibrering()
-maskine.openklo()
+#maskine.openklo()
 
 
-#opgaver.opgave1(ev3, robot)
+# opgaver.opgave1(ev3, maskine, robot, music)
+# opgaver.opgave2(ev3, maskine, robot, music)
+# opgaver.opgave3(ev3, maskine, robot, music)
+# opgaver.opgave4(ev3, maskine, robot, music, rightColor)
+# opgaver.opgave5(ev3, maskine, robot, music)
+# opgaver.opgave6(ev3, maskine, robot, music)
+
 
