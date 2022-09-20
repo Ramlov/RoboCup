@@ -42,7 +42,7 @@ class Maskine():
     fullTurnRate = 0
 
     #retop konstanten
-    retOpKonstant = 0.1
+    retOpKonstant = 1.5
 
     #Autodrive, hvilken retning er robotten igang med at dreje
     turnDirection = "none"
@@ -156,15 +156,17 @@ class Maskine():
                 rightGuess = "Grey"
             elif rightReflection <= self.blackThreshold:
                 rightGuess = "Black"
+
+
             right=rightGuess
             left=leftGuess
 
-            if right == "White" or left == "White":     #Skal muligvis ændres at at sige (if right != color)
-                    robot.drive((dir * self.fullDrive), 0)
-            elif left == color or right == color:
+            if right != color and left != color:
+                robot.drive((dir * self.fullDrive), 0)
+            else:
                 robot.stop()
                 break
-
+            
 
     def Kalibrering(self):
 
@@ -187,18 +189,28 @@ class Maskine():
         maskine.autodrive()
     
     
-    def retOooop(self):             #i dont know anymore. DET HER SKAL TESTES HVIS VI OVERHOVEDET SKAL BRUGE DET
-        robot.straight(-10)     #Bak tilbage ind i det sorte igen
-
-        #Bak indtil den ikke ser sort længere
-        while leftColor.reflection < self.blackThreshold or rightColor.reflection() < self.blackThreshold:
-            robot.drive(-50, 0)
-        ev3.speaker.beep()
-        robot.stop()
+    def retOooop(self):
         wait(500)
+        maskine.straight_until_color("Black", -1)     #Bak tilbage ind i det sorte igen
+        wait(100)
+        robot.straight(-50)
+        wait(5000)
+        # maskine.turn(20)
 
-        hasLeftHit, hasRightHit = False
-        leftTime, rightTime = 0
+
+        # #Bak indtil den ikke ser sort længere
+        # while leftColor.reflection() < self.blackThreshold or rightColor.reflection() < self.blackThreshold:
+        #     robot.drive(-50, 0)
+        # robot.straight(-10)
+        # robot.stop()
+        # wait(1000)
+        ev3.speaker.beep()
+
+        
+        hasLeftHit = False
+        hasRightHit = False
+        leftTime = 0
+        rightTime = 0
 
         #Kør frem indtil en af sensorerne ser sort
         while hasLeftHit == False or hasRightHit == False:
@@ -206,15 +218,18 @@ class Maskine():
             if leftColor.reflection() < self.blackThreshold and hasLeftHit == False:
                 hasLeftHit = True
                 leftTime = stopwatch.time()
+                ev3.speaker.beep()
                 break
             if rightColor.reflection() < self.blackThreshold and hasLeftHit == False:
                 hasRightHit = True
                 rightTime = stopwatch.time()
+                ev3.speaker.beep()
                 break
         
         timeDifference = leftTime - rightTime
-        print("The time difference is", abs(timeDifference))
-        maskine.turn(timeDifference * self.retOpKonstant)       #Laver f.eks. 100 milisekunder om til 10 grader
+        print("The time difference is: ", timeDifference)
+        robot.straight(50)
+        maskine.turn((timeDifference + ((timeDifference/abs(timeDifference)) * -15000))/-100 * self.retOpKonstant)       #Laver f.eks. 100 milisekunder om til 10 grader
         ev3.light.on(Color.RED)
         ev3.speaker.beep()
         wait(500)
@@ -249,13 +264,10 @@ class Maskine():
     def BottleFinder(self):
         """Search and Find Flaske"""
         maxAngle = 50                   #SKAL ÆNDRES ved testning
-        angleFromEdgeToCenter = 10
-        flaskeFundet = False
         
-        if Ultra.distance() < self.flaskeAfstand:       #Hvis den allerede kan se flasken, så hurtig ret ind
-            while Ultra.distance() < self.flaskeAfstand:
-                robot.drive(0, -20)
-            maskine.turn(angleFromEdgeToCenter)
+        flaskeFundet = False
+
+        if Ultra.distance() < self.flaskeAfstand:
             flaskeFundet = True
 
         if flaskeFundet == False:           #Scan til højre
@@ -266,11 +278,10 @@ class Maskine():
                 ev3.screen.draw_text(0, 20, self.angle())
 
                 if Ultra.distance() < self.flaskeAfstand:
+                    maskine.turn(5)
                     flaskeFundet = True
-                    self.turn(angleFromEdgeToCenter)
-                    robot.stop()
                     break
-
+        robot.stop()
         
         if flaskeFundet == False:           #Søg til venstre hvis ikke fundet til højre
             self.turn(-self.angle())        #TIlbage til midterpunktet
@@ -283,11 +294,11 @@ class Maskine():
                 ev3.screen.draw_text(0, 20, self.angle())
     
                 if Ultra.distance() < self.flaskeAfstand:
+                    maskine.turn(-5)
                     flaskeFundet = True
-                    self.turn(-angleFromEdgeToCenter)
-                    robot.stop()
                     break
         
+        robot.stop()
 
         ev3.light.on(Color.RED)
         ev3.speaker.beep()
@@ -295,7 +306,22 @@ class Maskine():
         ev3.light.on(Color.GREEN)
 
 
+        robot.reset()
+        while Ultra.distance() < self.flaskeAfstand:
+            print(Ultra.distance())
+            robot.drive(0,10)
+        robot.stop()
+        ra = self.angle()
+        maskine.turn(-ra)
+        ev3.speaker.beep()
 
+        wait(500)
+        robot.reset()
+        while Ultra.distance() < self.flaskeAfstand:
+            robot.drive(0,-10)
+        robot.stop()
+        la = self.angle()
+        maskine.turn(-(la - (ra+la)/2))
 
 
 ################## MUSIK ####################
@@ -317,11 +343,12 @@ class Music():
 maskine = Maskine()
 music = Music()
 
-
-
 maskine.sdv()
 maskine.Kalibrering()
-#maskine.openklo()
+
+maskine.autodrive()
+
+maskine.retOooop()
 
 
 # opgaver.opgave1(ev3, maskine, robot, music)
