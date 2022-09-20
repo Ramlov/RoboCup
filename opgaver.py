@@ -1,7 +1,6 @@
 #!/usr/bin/env pybricks-micropython
 
-from pybricks.tools import StopWatch
-
+from pybricks.tools import StopWatch, wait
 
 def opgave1(ev3, maskine, robot, music):
     """Brudt linje"""
@@ -53,29 +52,34 @@ def opgave2(ev3, maskine, robot, music):
 def opgave3(ev3, maskine, robot, music):
     """Vippen"""
     watch = StopWatch()
-
     maskine.autodrive()
     robot.straight(150)
     maskine.turn(-90)
+    maskine.fullDrive = 100
     maskine.autodrive()
-    maskine.fullDrive= 100
-    while watch.time() < 10000:
-        maskine.autodrive()
-    maskine.autodrive(True, "White")
-    print("har set hvid")
+    while watch.time() < 25000:
+        straight_until_color("Grey")
+        robot.drive(100, 0)
     maskine.turn(-90)
+    robot.straight(50)
     maskine.autodrive()
 
 
 def opgave4(ev3, maskine, robot, music, rightColor):   #Må gerne opdateres så wait() ikke skal bruges! plsss
     """De 4 brudte steger"""
-    glCount = 0
-    maskine.turn(45)
-    while glCount < 3:
+    glCount=0
+    if glCount == 0:
+        robot.straight(300)
+        robot.turn(-30)
         robot.drive(100, 0)
-        if rightColor() > maskine.threshold:
-            wait(200)
-            glcount += 1
+        glCount += 1
+    while glCount < 3:
+        if rightColor.reflection() > maskine.threshold:
+            glCount += 1
+            wait(2500)
+    robot.straight(20)
+    robot.turn(30)  
+    maskine.autodrive()                   
 
 
 def opgave5(ev3, maskine, robot, music):   #Brug BottleFinder()

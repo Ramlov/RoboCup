@@ -140,7 +140,7 @@ class Maskine():
 
             leftGuess = ""
             rightGuess = ""
-
+            print("Debug1")
             #CHECKING LEFT GUESS
             if leftReflection >= self.threshold:
                 leftGuess = "White"
@@ -148,7 +148,7 @@ class Maskine():
                 leftGuess = "Grey"
             elif leftReflection <= self.blackThreshold:
                 leftGuess = "Black"
-
+            print("Debug2")
             #CHECKING RIGHT GUESS
             if rightReflection >= self.threshold:
                 rightGuess = "White"
@@ -167,6 +167,7 @@ class Maskine():
                 robot.stop()
                 break
             
+
 
     def Kalibrering(self):
 
@@ -350,11 +351,23 @@ maskine.autodrive()
 
 maskine.retOooop()
 
+wait(200)
+maskine.straight_until_color("Grey")
 
-# opgaver.opgave1(ev3, maskine, robot, music)
-# opgaver.opgave2(ev3, maskine, robot, music)
-# opgaver.opgave3(ev3, maskine, robot, music)
-# opgaver.opgave4(ev3, maskine, robot, music, rightColor)
+"""
+for opgav in range(1, 10):
+    opgave_new = opgaver.opgave(opgav)(ev3, maskine, robot, music)
+    if opgav == 4:
+        opgave_new = opgaver.opgave(opgav)(ev3, maskine, robot, music, rightColor)
+        opgave
+    else:
+        opgave_new
+"""
+
+#opgaver.opgave1(ev3, maskine, robot, music)
+#opgaver.opgave2(ev3, maskine, robot, music)
+#opgaver.opgave3(ev3, maskine, robot, music)
+#opgaver.opgave4(ev3, maskine, robot, music, rightColor)
 # opgaver.opgave5(ev3, maskine, robot, music)
 # opgaver.opgave6(ev3, maskine, robot, music)
 
