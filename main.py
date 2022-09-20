@@ -140,7 +140,7 @@ class Maskine():
 
             leftGuess = ""
             rightGuess = ""
-
+            print("Debug1")
             #CHECKING LEFT GUESS
             if leftReflection >= self.threshold:
                 leftGuess = "White"
@@ -148,7 +148,7 @@ class Maskine():
                 leftGuess = "Grey"
             elif leftReflection <= self.blackThreshold:
                 leftGuess = "Black"
-
+            print("Debug2")
             #CHECKING RIGHT GUESS
             if rightReflection >= self.threshold:
                 rightGuess = "White"
@@ -158,12 +158,19 @@ class Maskine():
                 rightGuess = "Black"
             right=rightGuess
             left=leftGuess
-
-            if right == "White" or left == "White":     #Skal muligvis ændres at at sige (if right != color)
-                    robot.drive((dir * self.fullDrive), 0)
-            elif left == color or right == color:
-                robot.stop()
-                break
+            print("Debug3")
+            if color == "Black":
+                if right == "Grey" or left == "Grey" or right == "White" or left == "White":     #Skal muligvis ændres at at sige (if right != color)
+                        robot.drive((dir * self.fullDrive), 0)
+                elif left == color or right == color:
+                    robot.stop()
+                    break
+            elif color == "Grey":
+                if right == "White" or left == "White":     #Skal muligvis ændres at at sige (if right != color)
+                        robot.drive((dir * self.fullDrive), 0)
+                elif left == color or right == color:
+                    robot.stop()
+                    break
 
 
     def Kalibrering(self):
@@ -318,16 +325,27 @@ maskine = Maskine()
 music = Music()
 
 
-
 maskine.sdv()
 maskine.Kalibrering()
 #maskine.openklo()
 
+wait(200)
+maskine.straight_until_color("Grey")
 
-# opgaver.opgave1(ev3, maskine, robot, music)
-# opgaver.opgave2(ev3, maskine, robot, music)
-# opgaver.opgave3(ev3, maskine, robot, music)
-# opgaver.opgave4(ev3, maskine, robot, music, rightColor)
+"""
+for opgav in range(1, 10):
+    opgave_new = opgaver.opgave(opgav)(ev3, maskine, robot, music)
+    if opgav == 4:
+        opgave_new = opgaver.opgave(opgav)(ev3, maskine, robot, music, rightColor)
+        opgave
+    else:
+        opgave_new
+"""
+
+#opgaver.opgave1(ev3, maskine, robot, music)
+#opgaver.opgave2(ev3, maskine, robot, music)
+#opgaver.opgave3(ev3, maskine, robot, music)
+#opgaver.opgave4(ev3, maskine, robot, music, rightColor)
 # opgaver.opgave5(ev3, maskine, robot, music)
 # opgaver.opgave6(ev3, maskine, robot, music)
 
