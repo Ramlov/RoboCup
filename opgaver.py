@@ -52,14 +52,13 @@ def opgave2(ev3, maskine, robot, music):
 def opgave3(ev3, maskine, robot, music):
     """Vippen"""
     watch = StopWatch()
-    maskine.autodrive()
     robot.straight(150)
     maskine.turn(-90)
-    maskine.fullDrive = 100
     maskine.autodrive()
-    while watch.time() < 25000:
-        straight_until_color("Grey")
-        robot.drive(100, 0)
+    maskine.fullDrive = 100
+    maskine.autodrive(7.5)
+    wait(750)
+    maskine.autodrive(8)    
     maskine.turn(-90)
     robot.straight(50)
     maskine.autodrive()
@@ -77,7 +76,7 @@ def opgave4(ev3, maskine, robot, music, rightColor):   #Må gerne opdateres så 
         if rightColor.reflection() > maskine.threshold:
             glCount += 1
             wait(2500)
-    robot.straight(20)
+    robot.straight(10)
     robot.turn(30)  
     maskine.autodrive()                   
 
