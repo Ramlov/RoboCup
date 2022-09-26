@@ -30,6 +30,10 @@ rightColor = ColorSensor(Port.S3)
 stopwatch = StopWatch()
 
 class Maskine():
+
+    def __init__(self):
+        self.threshold 
+        
     #Colorsensor værdier
     threshold = 0
     blackThreshold = 0
