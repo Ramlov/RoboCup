@@ -196,21 +196,6 @@ def opgave7(ev3, maskine, robot, music, Ultra):
         robot.drive(-100, 0)
     robot.stop()
     ev3.speaker.beep()
-
-<<<<<<< HEAD
-def opgave9(ev3, maskine, robot, music):
-    active = 0
-    countlol = 0
-    while active == 0:
-        countlol+1 
-    maskine.straight_until_color("Black")
-    active = 1
-    countlol = countlol/2
-    while countlol > 0:
-        countlol
-    robot.drive(maskine.fullDrive)
-=======
-
     maskine.turn(70)
     while Ultra.distance() < 1000:           #Drej til frihed
         robot.drive(0, 30)
@@ -223,5 +208,16 @@ def opgave9(ev3, maskine, robot, music):
     while True:
         print(Ultra.distance())
 
+
+def opgave9(ev3, maskine, robot, music):
+    active = 0
+    countlol = 0
+    while active == 0:
+        countlol+1 
+    maskine.straight_until_color("Black")
+    active = 1
+    countlol = countlol/2
+    while countlol > 0:
+        countlol
+    robot.drive(maskine.fullDrive)
     
->>>>>>> 55ef0fd61fadf9d1cde850f1226590aca9bb03f2
