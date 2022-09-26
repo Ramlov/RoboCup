@@ -64,7 +64,7 @@ class Maskine():
     def sdv(self):
         """ Set defualt Values for driving"""
         self.fullDrive = 150
-        self.turnRate = 20 #34
+        self.turnRate = 34
         self.fullTurnRate = 60
 
        ## SDV med procentvise værdier til turnrates
@@ -134,9 +134,6 @@ class Maskine():
                 robot.stop()
                 break
         robot.stop()
-        ev3.speaker.beep()
-        wait(100)
-        ev3.speaker.beep()
 
 
     def straight_until_color(self, color, dir=1):
@@ -264,7 +261,6 @@ class Maskine():
             robot.drive(-100, 0)
             print(Ultra.distance())
         robot.stop()
-        wait(3000)
         robot.straight(-70)
         maskine.closeklo()
 
@@ -374,7 +370,8 @@ for opgav in range(1, 10):
     else:
         opgave_new
 """
-#maskine.retOooop()
+maskine.autodrive()
+
 #opgaver.opgave1(ev3, maskine, robot, music)
 #opgaver.opgave2(ev3, maskine, robot, music)
 #opgaver.opgave3(ev3, maskine, robot, music
