@@ -99,54 +99,9 @@ def opgave4(ev3, maskine, robot, music, rightColor):   #Må gerne opdateres så 
     maskine.turn(20)
     maskine.autodrive()
 
-    """
-    robot.straight(50)
-    maskine.autodrive(2)
-    maskine.turn(-55)
-
-
-    lastColor = 0
-    glCount=0
-
-    while glCount < 2:
-        robot.drive(100, 0)
-
-        if maskine.threshold > rightColor.reflection():   #If rightColor is grey
-            if lastColor >= maskine.threshold:
-                ev3.speaker.beep()
-                glCount += 1
-        
-        print(maskine.threshold , rightColor.reflection())
-
-        lastColor = rightColor.reflection()
-    
-    ev3.speaker.beep()
-
-    robot.straight(50)
-    maskine.turn(55)
-
-    maskine.autodrive()
-
-
-    glCount=0
-    if glCount == 0:
-        robot.straight(300)
-        robot.turn(-80)
-        robot.drive(100, 0)
-        glCount += 1
-    while glCount < 3:
-        if rightColor.reflection() > maskine.threshold:
-            glCount += 1
-            wait(1500)
-    
-    robot.straight(100)
-    robot.turn(80)  
-    maskine.autodrive()                   
-"""
-
 def opgave5(ev3, maskine, robot, music):   #Brug BottleFinder()
     """Flaske i målskiven"""
-    
+    ev3.speaker.beep()
 
 
 def opgave6(ev3, maskine, robot, music):    #Skal fintunes
