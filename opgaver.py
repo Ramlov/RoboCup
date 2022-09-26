@@ -149,10 +149,55 @@ def opgave5(ev3, maskine, robot, music):   #Brug BottleFinder()
     
 
 
-def opgave6(ev3, maskine, robot, music):   #Brug BottleFinder() til at sætte indgangsvinkel bedre
+def opgave6(ev3, maskine, robot, music):    #Skal fintunes
     """Uden om flaske"""
+
+    maskine.turn(50)
+    robot.straight(300)
+    maskine.turn(-20)
+    maskine.straight_until_color("Grey")
+
+    robot.straight(100)
+    maskine.turn(80)
+    maskine.autodrive()
+
+
+def opgave7(ev3, maskine, robot, music, Ultra):
+    #while True:
+    #    print(Ultra.distance())
+
+    maskine.turn(-120)
+
+    while Ultra.distance() > 1000:       #Find muren fra venstre
+        robot.drive(0, -20)
+    robot.stop()
+    ev3.speaker.beep()
+    wait(1000)
+
+    maskine.turn(-20)
+
+
+    while Ultra.distance() > 200:       #Kør hen til muren
+        robot.drive(-200, 0)
+    robot.stop()
+    ev3.speaker.beep()
+    wait(1000)
+    
+    while Ultra.distance() < 400:       #Drej indtil nu mur
+        robot.drive(0, -30)
+    robot.stop()
+    maskine.turn(-7)
+    ev3.speaker.beep()
+    wait(1000)
+
+    robot.straight(-200)
+
+    while Ultra.distance() > 120:           #Kør indtil 2 mur
+        robot.drive(-100, 0)
+    robot.stop()
     ev3.speaker.beep()
 
+<<<<<<< HEAD
 def opgave9(ev3, maskine, robot, music):
     active = 0
     countlol = 0
@@ -164,3 +209,19 @@ def opgave9(ev3, maskine, robot, music):
     while countlol > 0:
         countlol
     robot.drive(maskine.fullDrive)
+=======
+
+    maskine.turn(70)
+    while Ultra.distance() < 1000:           #Drej til frihed
+        robot.drive(0, 30)
+    robot.stop()
+    ev3.speaker.beep()
+    maskine.turn(10)
+    robot.straight(-500)
+
+
+    while True:
+        print(Ultra.distance())
+
+    
+>>>>>>> 55ef0fd61fadf9d1cde850f1226590aca9bb03f2
