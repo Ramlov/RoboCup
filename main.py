@@ -1,7 +1,7 @@
 #!/usr/bin/env pybricks-micropython
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import Motor, ColorSensor, TouchSensor, UltrasonicSensor
-from pybricks.parameters import Port, Direction, Button, Color
+from pybricks.parameters import Port, Direction, Button, Color, Stop
 from pybricks.tools import wait, DataLog, StopWatch
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile
@@ -22,7 +22,7 @@ ev3.speaker.set_volume(100)
 
 #Sensors
 Ultra = UltrasonicSensor(Port.S1)
-touch_sensor = TouchSensor(Port.S4)
+#touch_sensor = TouchSensor(Port.S4)
 leftColor = ColorSensor(Port.S2)
 rightColor = ColorSensor(Port.S3)
 
@@ -30,6 +30,10 @@ rightColor = ColorSensor(Port.S3)
 stopwatch = StopWatch()
 
 class Maskine():
+
+    def __init__(self):
+        self.threshold 
+        
     #Colorsensor værdier
     threshold = 0
     blackThreshold = 0
@@ -242,17 +246,18 @@ class Maskine():
 
 
     def openklo(self):
-        klo.run_time(700, 1100)
+        klo.run_until_stalled(200, duty_limit=40)
         wait(100)
-        klo.run_until_stalled(400, duty_limit=40)
-        wait(100)
-        klo.run_time(-800, 1800)
+        klo.run_time(-100, 50)
         wait(200)
         ev3.speaker.beep()
 
 
     def closeklo(self):
-        klo.run_until_stalled(-400, duty_limit=70)
+        #klo.run_until_stalled(-200, duty_limit=80)
+        #klo.dc(-30)
+        klo.run_until_stalled(-100, then=Stop.HOLD, duty_limit=None)
+
 
 
     def flaske(self):
@@ -347,7 +352,18 @@ maskine = Maskine()
 music = Music()
 
 maskine.sdv()
+#maskine.Kalibrering()
+#maskine.autodrive()
+
+maskine.openklo()
+maskine.closeklo()
+
+ev3.speaker.beep()
+wait(3000)
+
 maskine.Kalibrering()
+
+
 
 """
 for opgav in range(1, 10):
@@ -362,9 +378,8 @@ maskine.autodrive()
 
 #opgaver.opgave1(ev3, maskine, robot, music)
 #opgaver.opgave2(ev3, maskine, robot, music)
-#opgaver.opgave3(ev3, maskine, robot, music)
-
-opgaver.opgave4(ev3, maskine, robot, music, rightColor)
+#opgaver.opgave3(ev3, maskine, robot, music
+#opgaver.opgave4(ev3, maskine, robot, music, rightColor)
 # opgaver.opgave5(ev3, maskine, robot, music)
 # opgaver.opgave6(ev3, maskine, robot, music)
 
