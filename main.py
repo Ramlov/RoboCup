@@ -256,7 +256,7 @@ class Maskine():
     def closeklo(self):
         #klo.run_until_stalled(-200, duty_limit=80)
         #klo.dc(-30)
-        klo.run_until_stalled(-100, then=Stop.HOLD, duty_limit=None)
+        klo.run_until_stalled(-300, then=Stop.HOLD, duty_limit=85)
 
 
 
@@ -356,12 +356,19 @@ maskine.sdv()
 #maskine.autodrive()
 
 maskine.openklo()
+robot.straight(-200)
 maskine.closeklo()
 
+robot.straight(300)
+
+maskine.openklo()
 ev3.speaker.beep()
+
 wait(3000)
 
-maskine.Kalibrering()
+
+
+#maskine.Kalibrering()
 
 
 
@@ -374,7 +381,6 @@ for opgav in range(1, 10):
     else:
         opgave_new
 """
-maskine.autodrive()
 
 #opgaver.opgave1(ev3, maskine, robot, music)
 #opgaver.opgave2(ev3, maskine, robot, music)
@@ -382,15 +388,4 @@ maskine.autodrive()
 #opgaver.opgave4(ev3, maskine, robot, music, rightColor)
 # opgaver.opgave5(ev3, maskine, robot, music)
 # opgaver.opgave6(ev3, maskine, robot, music)
-
-"""
-ev3.speaker.beep()
-maskine.autodrive(5)
-
-wait(1000)
-
-
-
-maskine.autodrive()
-"""
 
