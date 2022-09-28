@@ -350,42 +350,8 @@ class Music():
 #----------------------------START----------------------------
 maskine = Maskine()
 music = Music()
-
 maskine.sdv()
-#maskine.Kalibrering()
-#maskine.autodrive()
 
-maskine.openklo()
-robot.straight(-200)
-maskine.closeklo()
-
-robot.straight(300)
-
-maskine.openklo()
-ev3.speaker.beep()
-
-wait(3000)
-
-
-
-#maskine.Kalibrering()
-
-
-
-"""
-for opgav in range(1, 10):
-    opgave_new = opgaver.opgave(opgav)(ev3, maskine, robot, music)
-    if opgav == 4:
-        opgave_new = opgaver.opgave(opgav)(ev3, maskine, robot, music, rightColor)
-        opgave
-    else:
-        opgave_new
-"""
 
 #opgaver.opgave1(ev3, maskine, robot, music)
 #opgaver.opgave2(ev3, maskine, robot, music)
-#opgaver.opgave3(ev3, maskine, robot, music
-#opgaver.opgave4(ev3, maskine, robot, music, rightColor)
-# opgaver.opgave5(ev3, maskine, robot, music)
-# opgaver.opgave6(ev3, maskine, robot, music)
-
