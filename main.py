@@ -349,7 +349,6 @@ maskine.sdv()
 maskine.Kalibrering()
 maskine.autodrive()
 
-opgav.() = opgaver.()(ev3, maskine, robot, music)
 
 #opgaver.opgave1(ev3, maskine, robot, music)
 #opgaver.opgave2(ev3, maskine, robot, music)
@@ -358,5 +357,3 @@ opgav.() = opgaver.()(ev3, maskine, robot, music)
 #opgaver.opgave4(ev3, maskine, robot, music, rightColor)
 # opgaver.opgave5(ev3, maskine, robot, music)
 # opgaver.opgave6(ev3, maskine, robot, music)
-
-opgav.opgave5
