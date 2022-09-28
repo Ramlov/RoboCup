@@ -2,6 +2,9 @@
 
 from pybricks.tools import StopWatch, wait
 
+
+#%% Opgave 1
+
 def opgave1(ev3, maskine, robot, music):
     """Brudt linje"""
     maskine.autodrive()
@@ -18,6 +21,7 @@ def opgave1(ev3, maskine, robot, music):
     maskine.turn(25)
     maskine.autodrive()
 
+#%% opgave 2
 
 def opgave2(ev3, maskine, robot, music):
     """Flaske"""
