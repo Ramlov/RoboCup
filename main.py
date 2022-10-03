@@ -8,7 +8,7 @@ from pybricks.media.ev3dev import SoundFile
 from pybricks.tools import StopWatch
 import opgaver      #Opgaver.py
 from threading import Thread        #Erstatter _thread. Til musicplayeren
-
+import math
 
 #Definitionen af motor samt diverse sensor
 ev3 = EV3Brick()
@@ -44,7 +44,8 @@ class Maskine():
     fullTurnRate = 0
 
     #retop konstanten
-    retOpKonstant = 1.5
+    retOpKonstant = 1.8
+    retHenKonstant = 1.8
 
     #Autodrive, hvilken retning er robotten igang med at dreje
     turnDirection = "none"
@@ -186,29 +187,10 @@ class Maskine():
         self.threshold = (greyLine + whiteLine) / 2.2      # Gennemsnittet mellem grå og hvid
         self.blackThreshold = greyLine / 3
     
-
-    def retOp(self):        #Måske ændres?
-        robot.straight(-200)
-        maskine.fullDrive = 50
-        maskine.turnRate = 40
-        maskine.autodrive()
     
-    
-    def retOooop(self):
-        wait(500)
-        maskine.straight_until_color("Black", -1)     #Bak tilbage ind i det sorte igen
-        wait(100)
-        robot.straight(-50)
-        wait(5000)
-        # maskine.turn(20)
-
-
-        # #Bak indtil den ikke ser sort længere
-        # while leftColor.reflection() < self.blackThreshold or rightColor.reflection() < self.blackThreshold:
-        #     robot.drive(-50, 0)
-        # robot.straight(-10)
-        # robot.stop()
-        # wait(1000)
+    def retOp(self):
+        wait(300)
+        maskine.straight_until_color("Grey")
         ev3.speaker.beep()
 
         retOpWatch = StopWatch()
@@ -218,31 +200,35 @@ class Maskine():
         leftTime = 0
         rightTime = 0
 
-        #Kør frem indtil en af sensorerne ser sort
+        #Kør frem indtil BEGGE sensorer har set sort!
         while hasLeftHit == False or hasRightHit == False:
-            robot.drive(10, 0)
+            robot.drive(-10, 0)
             if leftColor.reflection() < self.blackThreshold and hasLeftHit == False:
                 hasLeftHit = True
+                print("LEFT HAS HIT at", retOpWatch.time())
                 leftTime = retOpWatch.time()
                 ev3.speaker.beep()
-                break
-            if rightColor.reflection() < self.blackThreshold and hasLeftHit == False:
+            if rightColor.reflection() < self.blackThreshold and hasRightHit == False:
                 hasRightHit = True
+                print("RIGHT HAS HIT at", retOpWatch.time())
                 rightTime = retOpWatch.time()
                 ev3.speaker.beep()
-                break
         
+        robot.stop()
+        ev3.light.on(Color.RED)
+        ev3.speaker.beep()
+
         timeDifference = leftTime - rightTime
         print("Right Time: ", rightTime)
         print("Left Time: ", leftTime)
         print("The time difference is: ", timeDifference," ms")
-        robot.straight(50)
-        maskine.turn((timeDifference + ((timeDifference/abs(timeDifference)) * -15000))/-100 * self.retOpKonstant)       #Laver f.eks. 100 milisekunder om til 10 grader
-        ev3.light.on(Color.RED)
-        ev3.speaker.beep()
-        wait(500)
 
-
+        angle = timeDifference/100 * -1 * self.retOpKonstant
+        distance = timeDifference/100 * self.retHenKonstant
+        print("Angle = ", angle, ". Distance =", distance)
+        robot.straight(abs(distance))
+        maskine.turn(angle)
+        wait(50)
 
 
     def openklo(self):
@@ -252,13 +238,10 @@ class Maskine():
         wait(200)
         ev3.speaker.beep()
 
-
     def closeklo(self):
         #klo.run_until_stalled(-200, duty_limit=80)
         #klo.dc(-30)
         klo.run_until_stalled(-300, then=Stop.HOLD, duty_limit=85)
-
-
 
     def flaske(self):
         while Ultra.distance() > 80:
@@ -267,7 +250,6 @@ class Maskine():
         robot.stop()
         robot.straight(-70)
         maskine.closeklo()
-
 
     def BottleFinder(self):
         """Search and Find Flaske"""
@@ -360,19 +342,22 @@ maskine.openklo()
 maskine.Kalibrering()
 
 
-opgaver.opgave1(ev3, maskine, robot, music)
-opgaver.opgave2(ev3, maskine, robot, music)
-opgaver.opgave3(ev3, maskine, robot, music)
-opgaver.opgave4(ev3, maskine, robot, music, rightColor)
-
-robot.straight(15)
 maskine.autodrive()
 
+#opgaver.opgave1(ev3, maskine, robot, music)
+
+
+
+opgaver.opgave2(ev3, maskine, robot, music)
+# opgaver.opgave3(ev3, maskine, robot, music)
+# opgaver.opgave4(ev3, maskine, robot, music, rightColor)
+
+# robot.straight(15)
+# maskine.autodrive()
+
 #opgaver.opgave5(ev3, maskine, robot, music)
+# opgaver.opgave6(ev3, maskine, robot, music)
+# opgaver.opgave7(ev3, maskine, robot, music, Ultra)
+# opgaver.opgave8(ev3, maskine, robot, music)
 
-
-opgaver.opgave6(ev3, maskine, robot, music)
-opgaver.opgave7(ev3, maskine, robot, music, Ultra)
-
-opgaver.opgave8(ev3, maskine, robot, music)
-
+# opgaver.opgave9(ev3, maskine, robot, music)

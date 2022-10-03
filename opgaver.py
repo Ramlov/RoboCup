@@ -26,6 +26,23 @@ def opgave1(ev3, maskine, robot, music):
 
 def opgave2(ev3, maskine, robot, music):
     """Flaske"""
+    maskine.retOp()
+    robot.straight(160)
+    maskine.turn(-86)
+    maskine.openklo()
+    maskine.flaske()
+    maskine.straight_until_color("Black", - 1)
+    robot.straight(-100)
+    maskine.openklo()
+    music.PlayAsyncMusic("Bomb_Plant")
+    robot.straight(150)
+    maskine.turn(34)
+    robot.straight(150)
+    maskine.straight_until_color("Grey")
+    robot.straight(100)
+    maskine.turn(55)
+    maskine.autodrive()
+    """
     robot.straight(150)
     maskine.turn(-90)
     maskine.openklo()
@@ -44,7 +61,7 @@ def opgave2(ev3, maskine, robot, music):
     robot.straight(100)
     maskine.turn(55)
     maskine.autodrive()
-
+    """
 
 
 def opgave3(ev3, maskine, robot, music):
@@ -170,14 +187,10 @@ def opgave8(ev3, maskine, robot, music):  #Uden om flaske 2
 
 
 def opgave9(ev3, maskine, robot, music):
-    active = 0
-    countlol = 0
-    while active == 0:
-        countlol+1 
-    maskine.straight_until_color("Black")
-    active = 1
-    countlol = countlol/2
-    while countlol > 0:
-        countlol
-    robot.drive(maskine.fullDrive)
+    robot.straight(200)
+    maskine.turn(-55)
+    maskine.straight_until_color("Grey")
+    robot.straight(100)
+    maskine.turn(55)
+    maskine.autodrive(8.4)
     
