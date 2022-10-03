@@ -286,7 +286,7 @@ class Maskine():
                 ev3.screen.draw_text(0, 20, self.angle())
 
                 if Ultra.distance() < self.flaskeAfstand:
-                    maskine.turn(5)
+                    maskine.turn(15)
                     flaskeFundet = True
                     break
         robot.stop()
@@ -302,7 +302,7 @@ class Maskine():
                 ev3.screen.draw_text(0, 20, self.angle())
     
                 if Ultra.distance() < self.flaskeAfstand:
-                    maskine.turn(-5)
+                    maskine.turn(-15)
                     flaskeFundet = True
                     break
         
@@ -329,7 +329,11 @@ class Maskine():
             robot.drive(0,-10)
         robot.stop()
         la = self.angle()
+
         maskine.turn(-(la - (ra+la)/2))
+        maskine.turn(4)
+
+        
 
 
 ################## MUSIK ####################
@@ -352,6 +356,23 @@ maskine = Maskine()
 music = Music()
 maskine.sdv()
 
+maskine.openklo()
+maskine.Kalibrering()
 
-#opgaver.opgave1(ev3, maskine, robot, music)
-#opgaver.opgave2(ev3, maskine, robot, music)
+
+opgaver.opgave1(ev3, maskine, robot, music)
+opgaver.opgave2(ev3, maskine, robot, music)
+opgaver.opgave3(ev3, maskine, robot, music)
+opgaver.opgave4(ev3, maskine, robot, music, rightColor)
+
+robot.straight(15)
+maskine.autodrive()
+
+#opgaver.opgave5(ev3, maskine, robot, music)
+
+
+opgaver.opgave6(ev3, maskine, robot, music)
+opgaver.opgave7(ev3, maskine, robot, music, Ultra)
+
+opgaver.opgave8(ev3, maskine, robot, music)
+
