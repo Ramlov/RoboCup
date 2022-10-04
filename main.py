@@ -30,10 +30,6 @@ rightColor = ColorSensor(Port.S3)
 stopwatch = StopWatch()
 
 class Maskine():
-
-    def __init__(self):
-        self.threshold 
-        
     #Colorsensor værdier
     threshold = 0
     blackThreshold = 0
@@ -68,9 +64,9 @@ class Maskine():
 
     def sdv(self):
         """ Set defualt Values for driving"""
-        self.fullDrive = 150
-        self.turnRate = 34
-        self.fullTurnRate = 60
+        self.fullDrive = 175
+        self.turnRate = 32
+        self.fullTurnRate = 65
 
        ## SDV med procentvise værdier til turnrates
       #  self.turnRate = (150/32) * self.fullDrive
@@ -171,22 +167,18 @@ class Maskine():
             else:
                 robot.stop()
                 break
-            
 
 
     def Kalibrering(self):
-
         #Kalibrering i starten
         greyLine = (leftColor.reflection() + rightColor.reflection())/2
-        robot.turn(55)
-        robot.straight(100)
+        robot.straight(70)
         whiteLine = (leftColor.reflection() + rightColor.reflection())/2
-        robot.straight(-100)
-        robot.turn(-55)
+        maskine.turn(-90)
 
         self.threshold = (greyLine + whiteLine) / 2.2      # Gennemsnittet mellem grå og hvid
         self.blackThreshold = greyLine / 3
-    
+        
     
     def retOp(self):
         wait(300)
@@ -230,7 +222,6 @@ class Maskine():
         maskine.turn(angle)
         wait(50)
 
-
     def openklo(self):
         klo.run_until_stalled(200, duty_limit=40)
         wait(100)
@@ -244,8 +235,8 @@ class Maskine():
         klo.run_until_stalled(-300, then=Stop.HOLD, duty_limit=85)
 
     def flaske(self):
-        while Ultra.distance() > 80:
-            robot.drive(-100, 0)
+        while Ultra.distance() > 100:
+            robot.drive(-120, 0)
             print(Ultra.distance())
         robot.stop()
         robot.straight(-70)
@@ -337,27 +328,21 @@ class Music():
 maskine = Maskine()
 music = Music()
 maskine.sdv()
+robot.settings(maskine.fullDrive)       #Set robot.straight() 's speed
 
-maskine.openklo()
+maskine.closeklo()
 maskine.Kalibrering()
 
-
-maskine.autodrive()
-
-#opgaver.opgave1(ev3, maskine, robot, music)
-
-
-
+opgaver.opgave1(ev3, maskine, robot, music)
 opgaver.opgave2(ev3, maskine, robot, music)
-# opgaver.opgave3(ev3, maskine, robot, music)
-# opgaver.opgave4(ev3, maskine, robot, music, rightColor)
+opgaver.opgave3(ev3, maskine, robot, music)
+opgaver.opgave4(ev3, maskine, robot, music, rightColor)
 
-# robot.straight(15)
-# maskine.autodrive()
+opgaver.opgave5(ev3, maskine, robot, music, Ultra)
 
-#opgaver.opgave5(ev3, maskine, robot, music)
-# opgaver.opgave6(ev3, maskine, robot, music)
-# opgaver.opgave7(ev3, maskine, robot, music, Ultra)
-# opgaver.opgave8(ev3, maskine, robot, music)
+opgaver.opgave6(ev3, maskine, robot, music)
+opgaver.opgave7(ev3, maskine, robot, music, Ultra)
 
-# opgaver.opgave9(ev3, maskine, robot, music)
+opgaver.opgave8(ev3, maskine, robot, music)
+
+opgaver.opgave9(ev3, maskine, robot, music)
