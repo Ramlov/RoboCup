@@ -12,14 +12,14 @@ def opgave1(ev3, maskine, robot, music):
     maskine.turn(35)
     robot.straight(100)
     maskine.straight_until_color("Grey")
-    robot.straight(100)
+    robot.straight(125)
     maskine.turn(-35)
     maskine.autodrive()
     maskine.turn(-35)
     robot.straight(100)
     maskine.straight_until_color("Grey")
     robot.straight(100)
-    maskine.turn(35)
+    maskine.turn(38)
     maskine.autodrive()
 
 #%% opgave 2
@@ -28,11 +28,11 @@ def opgave2(ev3, maskine, robot, music):
     """Flaske"""
     maskine.retOp()
     robot.straight(160)
-    maskine.turn(-92)
+    maskine.turn(-90)
     maskine.openklo()
-    maskine.straight_until_color("Black", - 1)
+    robot.straight(-350)
     maskine.closeklo()
-    robot.straight(-100)
+    maskine.straight_until_color("Black", -1)
     maskine.openklo()
     music.PlayAsyncMusic("Bomb_Plant")
     robot.straight(150)
@@ -41,7 +41,7 @@ def opgave2(ev3, maskine, robot, music):
     maskine.straight_until_color("Grey")
     robot.straight(100)
     maskine.turn(55)
-    maskine.closeklo()
+    maskine.closeklo()  #Maybe removed?
     maskine.autodrive()
 
 
@@ -49,14 +49,16 @@ def opgave3(ev3, maskine, robot, music):
     """Vippen"""
     music.PlayAsyncMusic("Tokyo_Drift2")
     watch = StopWatch()
-    robot.straight(140)
+    robot.straight(122)
     maskine.turn(-88)
     maskine.autodrive()
     robot.straight(30)
     maskine.fullDrive = 100
+    maskine.blackThreshold -= 10
     maskine.autodrive(7.2)
     wait(550)
     maskine.autodrive(7.6)
+    maskine.blackThreshold += 10
     maskine.sdv()
     robot.straight(45)
     maskine.turn(-90)
@@ -67,14 +69,14 @@ def opgave3(ev3, maskine, robot, music):
 def opgave4(ev3, maskine, robot, music, rightColor):   #Må gerne opdateres så wait() ikke skal bruges! plsss
     """De 4 brudte steger"""
     music.PlayAsyncMusic("Tokyo_Drift3")
-    robot.straight(100)
+    robot.straight(105)
     maskine.fullDrive = 120
     maskine.autodrive(8.6)
     maskine.turn(-40)
     robot.straight(140)
     maskine.straight_until_color("Grey")
-    robot.straight(100)
-    maskine.turn(25)
+    robot.straight(90)
+    maskine.turn(40)
     maskine.fullDrive = 150
     maskine.autodrive()
 
@@ -82,7 +84,7 @@ def opgave5(ev3, maskine, robot, music, Ultra):   #Brug BottleFinder() Bottle in
     """Flaske i målskiven"""
     ev3.speaker.beep()
 
-    robot.straight(100)
+    robot.straight(125)
     maskine.turn(-90)
     maskine.autodrive()
 
@@ -92,8 +94,8 @@ def opgave5(ev3, maskine, robot, music, Ultra):   #Brug BottleFinder() Bottle in
     robot.straight(590)
 
     robot.reset() #Angle to 0
-    maskine.turn(180-40)
-    robot.straight(-250)
+    maskine.turn(180-37)
+    robot.straight(-200)
     while Ultra.distance() > 600:
         print(Ultra.distance())
         robot.drive(0, 10)
@@ -117,7 +119,6 @@ def opgave5(ev3, maskine, robot, music, Ultra):   #Brug BottleFinder() Bottle in
     robot.straight(90)
     maskine.turn(-75)
     maskine.autodrive()
-    
 
 
 def opgave6(ev3, maskine, robot, music):    #Skal fintunes
@@ -142,7 +143,7 @@ def opgave7(ev3, maskine, robot, music, Ultra):
         robot.drive(0, -20)
     robot.stop()
     ev3.speaker.beep()
-    wait(1000)
+    wait(100)
 
     maskine.turn(-20)
 
@@ -178,7 +179,7 @@ def opgave7(ev3, maskine, robot, music, Ultra):
     ev3.speaker.beep()
     maskine.turn(30)
     maskine.straight_until_color("Grey")
-    robot.straight(50)
+    robot.straight(60)
     maskine.turn(15)
     maskine.autodrive()
 
