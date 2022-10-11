@@ -28,9 +28,9 @@ def opgave2(ev3, maskine, robot, music):
     """Flaske"""
     maskine.retOp()
     robot.straight(160)
-    maskine.turn(-90)
+    maskine.turn(-88)
     maskine.openklo()
-    robot.straight(-350)
+    robot.straight(-380)
     maskine.closeklo()
     maskine.straight_until_color("Black", -1)
     maskine.openklo()
@@ -49,7 +49,7 @@ def opgave3(ev3, maskine, robot, music):
     """Vippen"""
     music.PlayAsyncMusic("Tokyo_Drift2")
     watch = StopWatch()
-    robot.straight(122)
+    robot.straight(135)
     maskine.turn(-88)
     maskine.autodrive()
     robot.straight(30)
@@ -60,7 +60,8 @@ def opgave3(ev3, maskine, robot, music):
     maskine.autodrive(7.6)
     maskine.blackThreshold += 10
     maskine.sdv()
-    robot.straight(45)
+    robot.straight(48)
+    maskine.straight_until_color("White")
     maskine.turn(-90)
     robot.straight(50)
     maskine.autodrive()
@@ -84,8 +85,9 @@ def opgave5(ev3, maskine, robot, music, Ultra):   #Brug BottleFinder() Bottle in
     """Flaske i målskiven"""
     ev3.speaker.beep()
 
-    robot.straight(125)
+    robot.straight(135)
     maskine.turn(-90)
+    
     maskine.autodrive()
 
     maskine.openklo()
@@ -95,8 +97,8 @@ def opgave5(ev3, maskine, robot, music, Ultra):   #Brug BottleFinder() Bottle in
 
     robot.reset() #Angle to 0
     maskine.turn(180-37)
-    robot.straight(-200)
-    while Ultra.distance() > 600:
+    
+    while Ultra.distance() > 670:
         print(Ultra.distance())
         robot.drive(0, 10)
     robot.stop()
@@ -104,15 +106,17 @@ def opgave5(ev3, maskine, robot, music, Ultra):   #Brug BottleFinder() Bottle in
     
     robot.reset()
     maskine.BottleFinder()
-    maskine.flaske()
+    #maskine.flaske()   #lorte funktion virker aldrig begrund af sensoren
+    robot.straight(-410)
+    maskine.closeklo()
+    
     maskine.turn(2)
     
     #maskine.turn(-maskine.angle())
 
-    robot.straight(650)
+    robot.straight(630)
     maskine.openklo()
-    robot.straight(100)
-    maskine.straight_until_color("Grey")
+    robot.straight(300)
     maskine.turn(25)
     robot.straight(150)
     maskine.straight_until_color("Grey")
@@ -135,11 +139,10 @@ def opgave6(ev3, maskine, robot, music):    #Skal fintunes
 
 
 def opgave7(ev3, maskine, robot, music, Ultra):
-    music.PlayAsyncMusic("Tokyo_Drift5")
     #maskine.retOp()
     maskine.turn(-120)
 
-    while Ultra.distance() > 1000:       #Find muren fra venstre
+    while Ultra.distance() > 600:       #Find muren fra venstre
         robot.drive(0, -20)
     robot.stop()
     ev3.speaker.beep()
@@ -152,7 +155,7 @@ def opgave7(ev3, maskine, robot, music, Ultra):
         robot.drive(-200, 0)
     robot.stop()
     ev3.speaker.beep()
-    wait(1000)
+    wait(500)
     
     while Ultra.distance() < 400:       #Drej indtil nu mur
         robot.drive(0, -30)
@@ -173,14 +176,14 @@ def opgave7(ev3, maskine, robot, music, Ultra):
     maskine.turn(20)
     robot.straight(-550)
     maskine.turn(45)
-    while Ultra.distance() > 1000:
+    while Ultra.distance() > 500:
         robot.drive(0, 30)
     robot.stop()
     ev3.speaker.beep()
-    maskine.turn(30)
+    maskine.turn(10)
     maskine.straight_until_color("Grey")
     robot.straight(60)
-    maskine.turn(15)
+    maskine.turn(30)
     maskine.autodrive()
 
 
@@ -204,5 +207,5 @@ def opgave9(ev3, maskine, robot, music):
     maskine.straight_until_color("Grey")
     robot.straight(100)
     maskine.turn(55)
-    maskine.autodrive(8.4)
+    maskine.autodrive(7.9)
     

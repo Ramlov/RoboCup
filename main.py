@@ -10,6 +10,7 @@ import opgaver      #Opgaver.py
 from threading import Thread        #Erstatter _thread. Til musicplayeren
 import math
 
+
 #Definitionen af motor samt diverse sensor
 ev3 = EV3Brick()
 
@@ -200,6 +201,7 @@ class Maskine():
                 print("LEFT HAS HIT at", retOpWatch.time())
                 leftTime = retOpWatch.time()
                 ev3.speaker.beep()
+
             if rightColor.reflection() < self.blackThreshold and hasRightHit == False:
                 hasRightHit = True
                 print("RIGHT HAS HIT at", retOpWatch.time())
@@ -307,6 +309,7 @@ class Maskine():
         maskine.turn(4)
 
         
+#7.95 Volt - mathias 1
 
 
 ################## MUSIK ####################
@@ -333,14 +336,15 @@ robot.settings(maskine.fullDrive)       #Set robot.straight() 's speed
 maskine.closeklo()
 maskine.Kalibrering()
 
+
 opgaver.opgave1(ev3, maskine, robot, music)
 
 opgaver.opgave2(ev3, maskine, robot, music)
 opgaver.opgave3(ev3, maskine, robot, music)
 opgaver.opgave4(ev3, maskine, robot, music, rightColor)
-
-opgaver.opgave5(ev3, maskine, robot, music, Ultra)
+opgaver.opgave5(ev3, maskine, robot, music, Ultra)        #MÅLSKIVE SKIPPET
 opgaver.opgave6(ev3, maskine, robot, music)
+
 opgaver.opgave7(ev3, maskine, robot, music, Ultra)
 opgaver.opgave8(ev3, maskine, robot, music)
 
